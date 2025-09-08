@@ -1,8 +1,10 @@
 mkdir -p build
 cd build
 
-if [ $(uname) == Darwin ]; then
-    export CXXFLAGS="$CXXFLAGS -stdlib=libc++"
+export CMAKE_GENERATOR="Ninja"
+
+if [[ "${target_platform}" == osx-* ]]; then
+    export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
 
 export MPI_FLAGS="--allow-run-as-root"
@@ -11,12 +13,12 @@ if [ $(uname) == Linux ]; then
     export MPI_FLAGS="$MPI_FLAGS;-mca;plm;isolated"
 fi
 
-export HYDRA_LAUNCHER=fork
-export OMPI_MCA_plm=isolated
-export OMPI_MCA_btl_vader_single_copy_mechanism=none
-export OMPI_MCA_rmaps_base_oversubscribe=yes
+#export HYDRA_LAUNCHER=fork
+#export OMPI_MCA_plm=isolated
+#export OMPI_MCA_btl_vader_single_copy_mechanism=none
+#export OMPI_MCA_rmaps_base_oversubscribe=yes
 
-cmake \
+cmake -G Ninja \
   -D CMAKE_BUILD_TYPE:STRING=RELEASE \
   -D CMAKE_INSTALL_PREFIX:PATH=$PREFIX \
   -D BUILD_SHARED_LIBS:BOOL=ON \
@@ -26,6 +28,12 @@ cmake \
   -D PYTHON_EXECUTABLE:FILEPATH=$PYTHON \
   -D SWIG_EXECUTABLE:FILEPATH=$PREFIX/bin/swig \
   -D DOXYGEN_EXECUTABLE:FILEPATH=$PREFIX/bin/doxygen \
+  -D CMAKE_C_FLAGS="-Wno-implicit-function-declaration" \
+  -D TPL_ENABLE_Kokkos:BOOL=ON \
+  -D TPL_ENABLE_KokkosKernels:BOOL=ON \
+  -D Kokkos_DIR:PATH="${PREFIX}/lib/cmake/Kokkos" \
+  -D KokkosKernels_DIR:PATH="${PREFIX}/lib/cmake/KokkosKernels" \
+  -D Trilinos_ENABLE_OpenMP:BOOL=ON \
   -D Trilinos_ENABLE_Fortran:BOOL=OFF \
   -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
   -D Trilinos_ENABLE_ALL_OPTIONAL_PACKAGES:BOOL=OFF \
@@ -85,4 +93,5 @@ cmake \
   -D PyTrilinos_INSTALL_PREFIX:PATH=$PREFIX \
   $SRC_DIR
 
-make -j $CPU_COUNT install
+ninja -j $CPU_COUNT 
+ninja install
