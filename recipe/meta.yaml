@@ -24,7 +24,7 @@ requirements:
     - libblas
     - liblapack
     - {{ mpi }}   # [unix]
-    - boost-cpp
+    - libboost-devel
     - scikit-umfpack
     - netcdf-cxx4 * mpi_{{ mpi }}_*
     - libmatio
@@ -40,7 +40,7 @@ requirements:
     - kokkos-kernels ==4.2.01
   run:
     - {{ mpi }}   # [unix]
-    - boost-cpp
+    - libboost-devel
     - scikit-umfpack
     - python
     - {{ pin_compatible('numpy') }}
