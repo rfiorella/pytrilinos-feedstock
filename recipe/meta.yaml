@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [ win ]
+  skip: True  # [win]
 
 requirements:
   build:
@@ -23,7 +23,7 @@ requirements:
   host:
     - libblas
     - liblapack
-    - {{ mpi }}   # [unix]
+    - {{ mpi }}  # [unix]
     - libboost-devel
     - scikit-umfpack
     - netcdf-cxx4 * mpi_{{ mpi }}_*
@@ -39,7 +39,7 @@ requirements:
     - kokkos ==4.2.01
     - kokkos-kernels ==4.2.01
   run:
-    - {{ mpi }}   # [unix]
+    - {{ mpi }}  # [unix]
     - libboost-devel
     - scikit-umfpack
     - python

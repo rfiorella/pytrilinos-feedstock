@@ -92,7 +92,9 @@ cmake -G Ninja \
   -D PyTrilinos_ENABLE_TESTS:BOOL=ON \
   -D PyTrilinos_ENABLE_EXAMPLES:BOOL=ON \
   -D PyTrilinos_INSTALL_PREFIX:PATH=$PREFIX \
+  -D Teuchos_ENABLE_COMPLEX:BOOL=ON \
+  -D Trilinos_ENABLE_COMPLEX_DOUBLE:BOOL=ON \
   $SRC_DIR
 
-ninja -j $CPU_COUNT 
+ninja -j $CPU_COUNT
 ninja install
