@@ -24,14 +24,13 @@ requirements:
     - libblas
     - liblapack
     - {{ mpi }}  # [unix]
-    - libboost-devel
     - scikit-umfpack
     - netcdf-cxx4 * mpi_{{ mpi }}_*
     - libmatio
     - xorg-libx11
     - hdf5 * mpi_{{ mpi }}_*
     - python
-    - swig =3.0.12
+    - swig 
     - doxygen
     - numpy
     - mpi4py
@@ -40,7 +39,6 @@ requirements:
     - kokkos-kernels ==4.2.01
   run:
     - {{ mpi }}  # [unix]
-    - libboost-devel
     - scikit-umfpack
     - python
     - {{ pin_compatible('numpy') }}
