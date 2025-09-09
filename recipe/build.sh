@@ -21,6 +21,7 @@ fi
 cmake -G Ninja \
   -D CMAKE_BUILD_TYPE:STRING=RELEASE \
   -D CMAKE_INSTALL_PREFIX:PATH=$PREFIX \
+  -D CMAKE_PREFIX_PATH:PATH=$PREFIX \
   -D BUILD_SHARED_LIBS:BOOL=ON \
   -D TPL_ENABLE_MPI:BOOL=ON \
   -D MPI_BASE_DIR:PATH=$PREFIX \
@@ -71,7 +72,7 @@ cmake -G Ninja \
   -D Trilinos_ENABLE_Komplex:BOOL=ON \
   -D Trilinos_ENABLE_Anasazi:BOOL=ON \
   -D Trilinos_ENABLE_Ifpack2:BOOL=ON \
-  -D Ifpack2_ENABLE_TEST:BOOL=OFF \
+  -D Ifpack2_ENABLE_TESTS:BOOL=OFF \
   -D Trilinos_ENABLE_Stratimikos:BOOL=ON \
   -D Trilinos_ENABLE_FEI:BOOL=ON \
   -D Trilinos_ENABLE_Teko:BOOL=ON \
